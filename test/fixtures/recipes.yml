@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recipe_name: Egg and toast
+  meal_type: Breakfast
+  source: Me
+  ingredients: Bread, butter, eggs
+  instructions: Toast bread, cook eggs, butter bread, place eggs on bread  
+  preperation_time: 1
+  cooking_time: 1
+
+two:
+  recipe_name: Ommelette
+  meal_type: Dinner
+  source: You
+  ingredients: Eggs, salt, pepper
+  instructions: Mix eggs and cook them.
+  preperation_time: 1
+  cooking_time: 1
