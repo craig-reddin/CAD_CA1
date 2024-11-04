@@ -47,7 +47,7 @@ jobs:
             pkill -f "rails server" || true
             
             # Install dependencies, migrate the database, and precompile assets
-            bundle install
+            gem bundle install
             rails db:migrate RAILS_ENV=production
             rails assets:precompile RAILS_ENV=production
 
