@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to EC2
+      - name: Set up SSH and Environment Variables
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -21,22 +21,35 @@ jobs:
           # Save the SSH private key and set the appropriate permissions
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
           chmod 600 KeyTwo.pem
+          
+          # Add the public IP to known hosts to avoid host verification prompts
+          ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
+      - name: Deploy to EC2
+        run: |
           # Define the EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
           PUBLIC_IP=98.83.197.203
 
-          # SSH into the EC2 instance and pull the latest changes
-          ssh -o StrictHostKeyChecking=no -i KeyTwo.pem ubuntu@$PUBLIC_IP << EOF
+          # SSH into the EC2 instance and execute deployment commands
+          ssh -o StrictHostKeyChecking=no -i KeyTwo.pem ubuntu@$PUBLIC_IP << 'EOF'
+            set -e  # Exit on error
             cd /home/ubuntu/CAD_CA1  # Replace with the path to your app on the EC2 instance
             git pull origin master
-            pkill -f "rails server"
-            bundle install
+            
+            # Restart the server process if it is running
+            pkill -f "rails server" || true
+            
+            # Install dependencies, migrate the database, and precompile assets
+            bundle install --deployment --without development test
             rails db:migrate RAILS_ENV=production
             rails assets:precompile RAILS_ENV=production
-            RAILS_ENV=production sudo /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80
+
+            # Start the Rails server
+            nohup RAILS_ENV=production /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80 &
           EOF
 
       - name: Clean up
         run: |
+          # Remove the private key after use
           rm -f KeyTwo.pem
