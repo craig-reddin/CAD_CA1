@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - master  # T
+      - master  # Trigger the workflow on pushes to the master branch
 
 jobs:
   deploy:
@@ -17,14 +17,12 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           # Save the SSH private key and set the appropriate permissions
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
           chmod 600 KeyTwo.pem
           
-          # Convert key to PEM format if necessary
-          ssh-keygen -p -m PEM -f KeyTwo.pem -N "" -q
-
           # Create the .ssh directory if it doesn't exist
           mkdir -p ~/.ssh
           
@@ -43,13 +41,14 @@ jobs:
             cd /home/ubuntu/CAD_CA1  # Replace with the path to your app on the EC2 instance
             git pull origin master
             
+            # Ensure RAILS_MASTER_KEY is set for the production environment
+            export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+            
             # Restart the server process if it is running
             pkill -f "rails server" || true
-            sudo apt-get update
-            sudo apt-get install -y ruby-dev
+            
             # Install dependencies, migrate the database, and precompile assets
-            sudo gem install bundler
-            sudo bundle install
+            bundle install --deployment --without development test
             rails db:migrate RAILS_ENV=production
             rails assets:precompile RAILS_ENV=production
 
