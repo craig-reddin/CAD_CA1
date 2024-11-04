@@ -1,0 +1,42 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - master  # Trigger the workflow on pushes to the master branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          # Save the SSH private key and set the appropriate permissions
+          echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
+          chmod 600 KeyTwo.pem
+
+          # Define the EC2 instance details
+          INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
+          PUBLIC_IP=98.83.197.203
+
+          # SSH into the EC2 instance and pull the latest changes
+          ssh -o StrictHostKeyChecking=no -i KeyTwo.pem ubuntu@$PUBLIC_IP << EOF
+            cd /home/ubuntu/CAD_CA1  # Replace with the path to your app on the EC2 instance
+            git pull origin master
+            pkill -f "rails server"
+            bundle install
+            rails db:migrate RAILS_ENV=production
+            rails assets:precompile RAILS_ENV=production
+            RAILS_ENV=production sudo /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80
+          EOF
+
+      - name: Clean up
+        run: |
+          rm -f KeyTwo.pem
