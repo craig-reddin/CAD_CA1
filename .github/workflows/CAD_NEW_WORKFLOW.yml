@@ -22,6 +22,9 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
           chmod 600 KeyTwo.pem
           
+          # Create the .ssh directory if it doesn't exist
+          mkdir -p ~/.ssh
+          
           # Add the public IP to known hosts to avoid host verification prompts
           ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
