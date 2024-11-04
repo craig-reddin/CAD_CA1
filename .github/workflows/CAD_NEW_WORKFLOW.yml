@@ -48,7 +48,7 @@ jobs:
             
             # Install dependencies, migrate the database, and precompile assets
             sudo gem install bundler
-            bundle install
+            sudo bundle install
             rails db:migrate RAILS_ENV=production
             rails assets:precompile RAILS_ENV=production
 
