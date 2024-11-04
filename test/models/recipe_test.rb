@@ -98,5 +98,7 @@ class RecipeTest < ActiveSupport::TestCase
       @recipe.destroy
     end
   end
+
+
 end
 
