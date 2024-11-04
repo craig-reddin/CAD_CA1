@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the master branc
+      - master  # Trigger the workflow on pushes to the master branch
 
 jobs:
   deploy:
@@ -30,6 +30,8 @@ jobs:
           ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # Pass RAILS_MASTER_KEY as environment variable
         run: |
           # Define the EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
@@ -38,10 +40,10 @@ jobs:
           # SSH into the EC2 instance and execute deployment commands
           ssh -o StrictHostKeyChecking=no -i KeyTwo.pem ubuntu@$PUBLIC_IP << 'EOF'
             set -e  # Exit on error
-            cd /home/ubuntu/CAD_CA1  # Replace with the path to your app on the EC2 instance
+            cd /home/ubuntu/CAD_CA1  # Navigate to your app directory
             git pull origin master
             
-            # Ensure RAILS_MASTER_KEY is set for the production environment
+            # Ensure RAILS_MASTER_KEY is available for production environment
             export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
             
             # Restart the server process if it is running
@@ -60,4 +62,3 @@ jobs:
         run: |
           # Remove the private key after use
           rm -f KeyTwo.pem
-
