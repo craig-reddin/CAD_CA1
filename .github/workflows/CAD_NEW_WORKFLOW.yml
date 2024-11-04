@@ -22,6 +22,9 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
           chmod 600 KeyTwo.pem
           
+          # Convert key to PEM format if necessary
+          ssh-keygen -p -m PEM -f KeyTwo.pem -N "" -q
+
           # Create the .ssh directory if it doesn't exist
           mkdir -p ~/.ssh
           
