@@ -17,7 +17,6 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           # Save the SSH private key and set the appropriate permissions
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
@@ -30,7 +29,7 @@ jobs:
           ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
-      
+
         run: |
           # Define the EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
