@@ -30,8 +30,7 @@ jobs:
           ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
-        env:
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # Pass RAILS_MASTER_KEY as environment variable
+      
         run: |
           # Define the EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
@@ -44,7 +43,7 @@ jobs:
             git pull origin master
             
             # Ensure RAILS_MASTER_KEY is available for production environment
-            export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+           # export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
             
             # Restart the server process if it is running
             pkill -f "rails server" || true
