@@ -14,7 +14,7 @@ Rails.application.configure do
   config.hosts << "localhost"
 
   # config.public_file_server.enabled = false
-  config.hosts << "54.83.132.170"
+  config.hosts << "98.83.197.203"
   
   #e750444e91cd4dcdaf892f94a8c6b527f048300fe2334476bc77fc2fef1bcd1f
 
