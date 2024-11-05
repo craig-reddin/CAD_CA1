@@ -12,7 +12,7 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
   config.hosts << "localhost"
-<<<<<<< HEAD
+
   # config.public_file_server.enabled = false
   config.hosts << "54.83.132.170"
 
@@ -25,8 +25,7 @@ Rails.application.configure do
   #config.require_master_key = true
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-=======
->>>>>>> c75a20ab3b879e50d907c70242de48e76dcad407
+
   # config.public_file_server.enabled = false
   config.hosts << "54.83.132.170"
 
