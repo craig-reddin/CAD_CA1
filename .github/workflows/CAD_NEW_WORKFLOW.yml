@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the master branc
+      - master  # Trigger the workflow on pushes to the master branch
 
 jobs:
   deploy:
@@ -17,6 +17,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           # Save the SSH private key and set the appropriate permissions
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
@@ -29,7 +30,8 @@ jobs:
           ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
-
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # Pass RAILS_MASTER_KEY as environment variable
         run: |
           # Define the EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
@@ -42,7 +44,7 @@ jobs:
             git pull origin master
             
             # Ensure RAILS_MASTER_KEY is available for production environment
-           # export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+            export RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
             
             # Restart the server process if it is running
             pkill -f "rails server" || true
