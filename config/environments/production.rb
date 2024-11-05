@@ -11,16 +11,9 @@ Rails.application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
-
-  # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local = false
-
-  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
-  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
-
-  # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
+  config.hosts << "localhost"
   # config.public_file_server.enabled = false
+  config.hosts << "54.83.132.170"
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
