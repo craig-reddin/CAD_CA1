@@ -31,7 +31,7 @@ jobs:
 
       - name: Deploy to EC2
         env:
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # Pass RAILS_MASTER_KEY as environment variabl
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # Pass RAILS_MASTER_KEY as environment variable
         run: |
           # Define the EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe"  # Replace with your EC2 instance ID
