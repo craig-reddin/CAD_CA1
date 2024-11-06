@@ -13,21 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH and Environment Variables
+      - name: Set up Environment Variables
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           
         run: |
-          # Save the SSH private key and set the appropriate permissions
+          # Save the SSH private key and set the permissions
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
           chmod 600 KeyTwo.pem
-          
-          # Create the .ssh directory if it doesn't exist
-          mkdir -p ~/.ssh
-          
-          # Add the public IP to known hosts to avoid host verification prompts
-          ssh-keyscan -H 98.83.197.203 >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
         run: |
