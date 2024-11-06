@@ -27,7 +27,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          # Define the EC2 instance details
+          # Define EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe" 
           # An elastic IP was allocated to the EC2 instance
           PUBLIC_IP=98.83.197.203 
