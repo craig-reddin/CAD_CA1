@@ -50,6 +50,7 @@ jobs:
             bundle exec rubocop --auto-correct-all --disable-uncorrectable
             bundle install
             rails db:migrate
+            
             #RAILS_ENV=production sudo /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80
           EOF
 
