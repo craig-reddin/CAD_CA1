@@ -44,15 +44,16 @@ jobs:
             
             # Install dependencies, migrate the database, and Start the application
             # When the application would start - the workflow would run until the rails server was terminated.
+            bundle install
             bundle binstubs bundler-audit brakeman rubocop
             bundle exec bundle audit --update
             bundle exec brakeman -q -w2
             bundle exec rubocop --auto-correct-all --disable-uncorrectable
-            bundle install
+            
             rails db:migrate
             #RAILS_ENV=production sudo /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80
           EOF
-          
+
       - name: Clean up
         run: |
           # Remove the private key after use
