@@ -15,8 +15,8 @@ Rails.application.configure do
 
   # config.public_file_server.enabled = false
   config.hosts << "98.83.197.203"
-  
-  #e750444e91cd4dcdaf892f94a8c6b527f048300fe2334476bc77fc2fef1bcd1f
+
+  # e750444e91cd4dcdaf892f94a8c6b527f048300fe2334476bc77fc2fef1bcd1f
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
@@ -28,7 +28,7 @@ Rails.application.configure do
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
 
   # config.public_file_server.enabled = false
- 
+
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -86,7 +86,7 @@ Rails.application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
-  
+
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false

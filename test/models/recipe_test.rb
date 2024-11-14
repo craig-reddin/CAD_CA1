@@ -5,10 +5,10 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "dinner",
-    ingredients:"Pasta, beef, tomatoes",
+    ingredients: "Pasta, beef, tomatoes",
     instructions: "Cook it",
     source: "me",
-    preperation_time: 5, 
+    preperation_time: 5,
     cooking_time: 5)
 
    assert recipe.save
@@ -18,10 +18,10 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "",
-    ingredients:"Pasta, beef, tomatoes",
+    ingredients: "Pasta, beef, tomatoes",
     instructions: "Cook it",
     source: "me",
-    preperation_time: 5, 
+    preperation_time: 5,
     cooking_time: 5)
 
    assert_not recipe.save
@@ -31,10 +31,10 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "dinner",
-    ingredients:"",
+    ingredients: "",
     instructions: "Cook it",
     source: "me",
-    preperation_time: 5, 
+    preperation_time: 5,
     cooking_time: 5)
 
    assert_not recipe.save
@@ -44,10 +44,10 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "dinner",
-    ingredients:"Pasta, beef, tomatoes",
+    ingredients: "Pasta, beef, tomatoes",
     instructions: "",
     source: "me",
-    preperation_time: 5, 
+    preperation_time: 5,
     cooking_time: 5)
 
    assert_not recipe.save
@@ -57,10 +57,10 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "dinner",
-    ingredients:"Pasta, beef, tomatoes",
+    ingredients: "Pasta, beef, tomatoes",
     instructions: "Cook it",
     source: "",
-    preperation_time: 5, 
+    preperation_time: 5,
     cooking_time: 5)
 
    assert_not recipe.save
@@ -70,10 +70,10 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "dinner",
-    ingredients:"Pasta, beef, tomatoes",
+    ingredients: "Pasta, beef, tomatoes",
     instructions: "Cook it",
     source: "me",
-    preperation_time: 0, 
+    preperation_time: 0,
     cooking_time: 5)
 
    assert_not recipe.save
@@ -83,11 +83,11 @@ class RecipeTest < ActiveSupport::TestCase
    recipe = Recipe.new(
     recipe_name: "Spagetti",
     meal_type: "dinner",
-    ingredients:"Pasta, beef, tomatoes",
+    ingredients: "Pasta, beef, tomatoes",
     instructions: "Cook it",
     source: "me",
-    preperation_time: 5, 
-    cooking_time: 0 )
+    preperation_time: 5,
+    cooking_time: 0)
 
    assert_not recipe.save
   end
@@ -98,7 +98,4 @@ class RecipeTest < ActiveSupport::TestCase
       @recipe.destroy
     end
   end
-
-
 end
-

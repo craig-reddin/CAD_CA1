@@ -64,7 +64,7 @@
   end
 
   def generate_recipe
-    ingredients = params[:recipeName].split(",")  
+    ingredients = params[:recipeName].split(",")
     meal_type = params[:mealType]
     api_keyer = ENV["OPENAI_API_KEY"]
     recipe_generator = RecipeTools::ChatgptRecipeGenerator.new(api_keyer)
@@ -87,8 +87,4 @@
   def recipe_params
     params.require(:recipe).permit(:recipeName, :mealType, :source, :ingredients, :instructions, :preperationTime, :cookingTime)
   end
-
-  
-
-  
-end
+ end

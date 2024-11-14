@@ -5,7 +5,7 @@ require "httparty"
 module RecipeTools
   class ChatgptRecipeGenerator
     API_Key = "https://api.openai.com/v1/chat/completions"
-    
+
     def initialize(api_key)
       @api_key = api_key
     end
@@ -30,7 +30,7 @@ module RecipeTools
         },
         body: {
           model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt }],
+          messages: [ { role: "user", content: prompt } ],
           max_tokens: 500
         }.to_json
       )
@@ -47,8 +47,8 @@ module RecipeTools
       puts(response)
       response = JSON.parse(response) if response.is_a?(String)
 
-      if response && response['choices'].is_a?(Array) && response['choices'].any?
-        response['choices'][0]['message']['content']
+      if response && response["choices"].is_a?(Array) && response["choices"].any?
+        response["choices"][0]["message"]["content"]
       else
         "Sorry, I couldn't generate a recipe at this time."
       end
