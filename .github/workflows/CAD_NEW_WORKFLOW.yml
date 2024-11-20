@@ -53,4 +53,4 @@ jobs:
       - name: Clean up
         run: |
           # Remove the private key after use
-          rm -f KeyTwo.pem
+          rm -f KeyTwo.pem
