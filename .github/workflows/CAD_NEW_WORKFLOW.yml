@@ -42,7 +42,7 @@ jobs:
             # Navigate to Recipe App directory
             cd /home/ubuntu/CAD_CA1
             # Pull repository state to vm
-            git pull origin mastereeeeee
+            git pull origin mastereeee
             
             
             # Install dependencies, migrate the database, and Start the application
