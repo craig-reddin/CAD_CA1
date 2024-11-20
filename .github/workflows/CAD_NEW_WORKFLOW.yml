@@ -19,34 +19,38 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           
         run: |
-          # We know this script will be ran on a GitHub VM (ubuntu latest), allows to create a KeyTwo.pem file by echoing the value kept as a gitgub secret. 
           # Save the SSH private key and set the permissions
           echo "$SSH_PRIVATE_KEY" > KeyTwo.pem
+
+          # Set read and write permissions for owner.
           chmod 600 KeyTwo.pem
 
       - name: Deploy to EC2
         run: |
           # Define EC2 instance details
           INSTANCE_ID="i-0455c1a7044a93abe" 
+
           # An elastic IP was allocated to the EC2 instance
           PUBLIC_IP=98.83.197.203 
 
           # SSH into the EC2 instance
+          #StrictHostKeyChecking=no - command is required to disable identity verification of the server connection.
+
           ssh -o StrictHostKeyChecking=no -i KeyTwo.pem ubuntu@$PUBLIC_IP << 'EOF'
             # Exit if error occurs
             set -e
-            # Navigate to pRecipe App directory
+            # Navigate to Recipe App directory
             cd /home/ubuntu/CAD_CA1
             # Pull repository state to vm
-            git pull origin master
+            git pull origin mastereeeeee
             
-            # Kill the server if one is running
-            pkill -f "rails server" || true
             
             # Install dependencies, migrate the database, and Start the application
-            # When the application would start - the workflow would run until the rails server was terminated.
+            
             bundle install
             rails db:migrate
+
+            # When the application would start - the workflow would run until the rails server was terminated.
             #RAILS_ENV=production sudo /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80
           EOF
 
