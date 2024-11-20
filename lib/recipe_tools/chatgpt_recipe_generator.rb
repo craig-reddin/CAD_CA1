@@ -4,7 +4,7 @@ require "httparty"
 
 module RecipeTools
   class ChatgptRecipeGenerator
-    API_Key = "https://api.openai.com/v1/chat/completions"
+    API_URL = "https://api.openai.com/v1/chat/completions"
 
     def initialize(api_key)
       @api_key = api_key
@@ -23,7 +23,7 @@ module RecipeTools
 
     def request_chatgpt(prompt)
       response = HTTParty.post(
-        API_Key,
+        API_URL,
         headers: {
           "Authorization" => "Bearer #{@api_key}",
           "Content-Type" => "application/json"

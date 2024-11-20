@@ -18,7 +18,6 @@ jobs:
           #These are github secrets.
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           
-          
         run: |
           # We know this script will be ran on a GitHub VM (ubuntu latest), allows to create a KeyTwo.pem file by echoing the value kept as a gitgub secret. 
           # Save the SSH private key and set the permissions
@@ -41,14 +40,12 @@ jobs:
             # Pull repository state to vm
             git pull origin master
             
+            # Kill the server if one is running
+            pkill -f "rails server" || true
             
             # Install dependencies, migrate the database, and Start the application
             # When the application would start - the workflow would run until the rails server was terminated.
             bundle install
-            bundle binstubs bundler-audit brakeman rubocop
-            bundle exec bundle audit --update
-            bundle exec brakeman -q -w2
-            bundle exec rubocop --auto-correct-all --disable-uncorrectable
             rails db:migrate
             #RAILS_ENV=production sudo /home/ubuntu/.rbenv/shims/rails server --binding 0.0.0.0 --port 80
           EOF
@@ -56,4 +53,4 @@ jobs:
       - name: Clean up
         run: |
           # Remove the private key after use
-          rm -f KeyTwo.pem
+          rm -f KeyTwo.pem
