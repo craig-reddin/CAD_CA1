@@ -114,7 +114,7 @@ class RecipesController < ApplicationController
   end
 
   # Defines which parameters are allowed for recipes
-  # This ensures only the specified fields can be passed into the controller
+  # This ensures only the specified fields can be passed into the controller.
   def recipe_params
     params.require(:recipe).permit(:recipeName, :mealType, :source, :ingredients, :instructions, :preperationTime, :cookingTime)
   end
