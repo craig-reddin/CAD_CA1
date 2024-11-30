@@ -39,9 +39,7 @@ jobs:
             # Navigate to pRecipe App directory
             cd /home/ubuntu/CAD_CA1
             # Pull repository state to vm
-            git commit
             git pull origin master
-            
             # Install dependencies, migrate the database, and Start the application
             # When the application would start - the workflow would run until the rails server was terminated.
             bundle install
