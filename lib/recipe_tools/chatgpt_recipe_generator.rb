@@ -67,7 +67,7 @@ module RecipeTools
       # Ensures the response is parsed JSON
       response = JSON.parse(response) if response.is_a?(String)
 
-      # Checks if the response is not null, "choices" is an array and the choices is not null.
+      # Checks if the response contains a valid "choices" array with recipe content
       if response && response["choices"].is_a?(Array) && response["choices"].any?
         # Returns the recipe content from the first choice
         response["choices"][0]["message"]["content"]
