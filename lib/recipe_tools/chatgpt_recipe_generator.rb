@@ -36,7 +36,7 @@ module RecipeTools
       response = HTTParty.post(
         API_URL,
         headers: {
-           # Uses the stored API key for request
+           # Stored API key for request
           "Authorization" => "Bearer #{@api_key}",
            # Request body is JSON
           "Content-Type" => "application/json"   
@@ -51,7 +51,7 @@ module RecipeTools
         }.to_json
       )
 
-      # Log an error message if the API call fails (non-200 HTTP status code)
+      # Log an error message if the API call fails for debugging
       if response.code != 200
         Rails.logger.error("Error fetching response from OpenAI: #{response.body}")
         return ("Error fetching response from OpenAI")
@@ -67,7 +67,7 @@ module RecipeTools
       # Ensures the response is parsed JSON
       response = JSON.parse(response) if response.is_a?(String)
 
-      # Checks if the response contains a valid "choices" array with recipe content
+      # Checks if the response is not null, "choices" is an array and the choices is not null.
       if response && response["choices"].is_a?(Array) && response["choices"].any?
         # Returns the recipe content from the first choice
         response["choices"][0]["message"]["content"]
