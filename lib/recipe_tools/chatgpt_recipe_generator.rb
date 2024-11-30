@@ -31,14 +31,13 @@ module RecipeTools
       "Create a recipe for a #{meal_type} using the following ingredients: #{ingredients}. Can you give meal name, ingredients, instructions and prep time and cook time please?"
     end
 
+
     # Makes an HTTP POST request with the prompt, API key, and parameters
     def request_chatgpt(prompt)
       response = HTTParty.post(
         API_URL,
         headers: {
-           # Stored API key for request
           "Authorization" => "Bearer #{@api_key}",
-           # Request body is JSON
           "Content-Type" => "application/json"   
         },
         body: {
